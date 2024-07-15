@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 
 const InformationPage = () => {
   const [signedInUser, setSignedInUser] = useState<UserType | null>(null);
+  const { user } = useUser();
+  console.log("User: ", user?.fullName);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,7 +23,7 @@ const InformationPage = () => {
   }, []);
 
   const initialData = {
-    fullName: signedInUser?.fullName || "",
+    fullName: user?.fullName ? user.fullName : signedInUser?.fullName || "",
     phone: signedInUser?.phone || "",
     address: signedInUser?.address || "",
   };

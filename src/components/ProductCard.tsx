@@ -7,13 +7,13 @@ import HeartFavorite from "./HeartFavorite";
 
 interface ProductCardProps {
   product: ProductType;
+  updateSignedInUser?: (updatedUser: UserType) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
   return (
     <Link
       href={`/products/${product._id}`}
-      // onClick={() => router.push(`/products/${product._id}`)}
       className="w-[220px] flex flex-col gap-2"
     >
       <Image
@@ -27,10 +27,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <p className="text-base-bold">{product.title}</p>
         <p className="text-small-medium text-grey-2">{product.category}</p>
       </div>
-      <div className="flex justify-between items-center">
+      {/* <div className="flex justify-between items-center">
         <p className="text-body-bold">${product.price}</p>
-        <HeartFavorite product={product} />
-      </div>
+        <HeartFavorite
+          product={product}
+          updateSignedInUser={updateSignedInUser}
+        />
+      </div> */}
     </Link>
   );
 };

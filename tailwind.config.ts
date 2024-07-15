@@ -97,6 +97,9 @@ const config = {
       ],
     },
     extend: {
+      backgroundImage: {
+        "contact-bg": "url('/bg_contact.png')",
+      },
       colors: {
         "white-1": "#F8F8F8",
         // "grey-1": "#616161",
@@ -107,6 +110,7 @@ const config = {
         "red-1": "#FF0000",
         "grey-1": "#F7F7F7",
         "grey-2": "#8A8A8A",
+        "grey-3": "#616161",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

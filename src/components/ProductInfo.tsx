@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeartFavorite from "./HeartFavorite";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import useCart from "@/lib/hooks/useCart";
@@ -7,6 +7,9 @@ import useCart from "@/lib/hooks/useCart";
 const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
   const [selectedColor, setSelectedColor] = useState<string>(
     productInfo.colors[0]
+  );
+  const [selectedSize, setSelectedSize] = useState<string>(
+    productInfo.sizes[0]
   );
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -20,19 +23,23 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
       </div>
 
       <div className="flex gap-2">
-        <p className="text-base-medium text-grey-2">Category:</p>
+        <p className="text-base-medium text-grey-2">Loại:</p>
         <p className="text-base-bold">{productInfo.category}</p>
       </div>
 
-      <p className="text-heading3-bold">$ {productInfo.price}</p>
+      <p className="text-heading3-bold">{productInfo.price} (vnd)</p>
 
       <div className="flex flex-col gap-2 justify-between">
-        <p className="text-base-medium text-grey-2 ">Description:</p>
-        <p className="text-small-medium">{productInfo.description}</p>
+        <p className="text-base-medium text-grey-2 ">Mô tả:</p>
+        {/* <p className="text-small-medium"> */}
+        <div className="whitespace-pre-wrap text-small-medium overflow-auto max-w-full max-h-56 p-4 ">
+          {productInfo.description}
+        </div>
+        {/* </p> */}
       </div>
       {productInfo.colors.length > 0 && (
         <div className="flex flex-col gap-2">
-          <p className="text-base-medium text-grey-2">Colors:</p>
+          <p className="text-base-medium text-grey-2">Màu sắc:</p>
           <div className="flex gap-2">
             {productInfo.colors.map((color, index) => (
               <p
@@ -48,8 +55,26 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
           </div>
         </div>
       )}
+      {productInfo.sizes.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <p className="text-base-medium text-grey-2">Sizes:</p>
+          <div className="flex gap-2">
+            {productInfo.sizes.map((size, index) => (
+              <p
+                key={index}
+                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${
+                  selectedSize === size && "bg-black text-white"
+                }`}
+                onClick={() => setSelectedSize(size)}
+              >
+                {size}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-2">
-        <p className="text-base-medium text-grey-2">Quantity:</p>
+        <p className="text-base-medium text-grey-2">Số lượng:</p>
         <div className="flex gap-4 items-center">
           <MinusCircle
             className="hover:text-red-1 cursor-pointer"
@@ -68,7 +93,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
           cart.addItem({ item: productInfo, quantity, color: selectedColor })
         }
       >
-        Add to cart
+        Thêm vào giỏ
       </button>
     </div>
   );

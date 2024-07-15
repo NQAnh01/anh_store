@@ -68,11 +68,11 @@ const CartPage = () => {
   return (
     <div className="flex gap-20 py-8 px-10 max-lg:flex-col max-sm:px-3">
       <div className="w-2/3 max-lg:w-full">
-        <p className="text-heading3-bold">Shopping Cart</p>
+        <p className="text-heading3-bold">Giỏ hàng</p>
         <hr className="my-6" />
 
         {cart.cartItems.length === 0 ? (
-          <p className="text-body-bold">No item in cart</p>
+          <p className="text-body-bold">Không có sản phẩm trong giỏ!</p>
         ) : (
           <div className="h-[400px] overflow-y-auto">
             {cart.cartItems.map((cartItem) => (
@@ -132,7 +132,7 @@ const CartPage = () => {
           </p>
           <div className="flex justify-between text-body-semibold pb-8">
             <span>Tổng cộng</span>
-            <span> {total}.000đ</span>
+            <span> {total}</span>
           </div>
           {/* Thông tin đặt hàng */}
 
@@ -183,9 +183,7 @@ const CartPage = () => {
           <button
             className="border rounded-lg text-body-bold bg-white py-3 w-full hover:bg-black hover:text-white disabled:text-gray-200 disabled:hover:bg-white"
             onClick={handleCheckout}
-            disabled={
-              cart.cartItems.length === 0 || signedInUser?.fullName === ""
-            }
+            disabled={cart.cartItems.length === 0 || !signedInUser?.phone}
           >
             Đặt hàng
           </button>

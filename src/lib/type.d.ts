@@ -32,18 +32,25 @@ type UserType = {
 };
 
 type OrderType = {
-  shippingAddress: Object;
+  shippingAddress: string;
   _id: string;
   customerClerkId: string;
   products: [OrderItemType];
-  shippingRate: string;
-  totalAmount: number;
+  status: string;
+  total: number;
 };
 
 type OrderItemType = {
   product: ProductType;
   color: string;
-  size: string;
   quantity: number;
   _id: string;
+};
+
+type HandmadeType = {
+  _id: string;
+  clerkId: string;
+  title: string;
+  description: string;
+  image: string;
 };
