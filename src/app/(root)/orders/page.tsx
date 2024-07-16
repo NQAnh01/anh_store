@@ -30,14 +30,15 @@ const Orders = async () => {
         </Link>
       </div>
       <Separator className="bg-grey-3 mb-4" />
-      {!orders ||
-        (orders.length === 0 && (
+      {orders ? (
+        <div>
+          <OrderTable orders={orders} />
+        </div>
+      ) : (
+        orders.length === 0 && (
           <p className="text-body-bold my-5">Bạn chưa có đơn hàng!</p>
-        ))}
-
-      <div>
-        <OrderTable orders={orders} />
-      </div>
+        )
+      )}
     </div>
   );
 };
