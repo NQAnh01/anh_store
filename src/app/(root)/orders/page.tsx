@@ -1,11 +1,9 @@
-"use client";
-import { DataTable } from "@/components/custom ui/DataTable";
-import { columns } from "@/components/orderColumns/OrderColumns";
+// "use client";
+import OrderTable from "@/components/OrderTable";
 import { Separator } from "@/components/ui/separator";
 import { getOrders } from "@/lib/actions/actions";
 import { auth } from "@clerk/nextjs/server";
 import { CircleChevronRight } from "lucide-react";
-
 import Link from "next/link";
 
 const Orders = async () => {
@@ -24,7 +22,7 @@ const Orders = async () => {
       <div className="flex justify-between mt-10 mb-5">
         <p className="text-heading3-bold">Đơn hàng của bạn</p>
         <Link
-          href="/orders/handmade"
+          href="/handmade"
           className="flex items-center gap-3 border rounded-lg px-4 py-3 hover:bg-black hover:text-white max-md:hidden"
         >
           <p className="text-base-bold">Đặt hàng gia công</p>
@@ -37,8 +35,8 @@ const Orders = async () => {
           <p className="text-body-bold my-5">Bạn chưa có đơn hàng!</p>
         ))}
 
-      <div className="flex flex-col gap-10">
-        <DataTable columns={columns} data={orders} searchKey="_id" />
+      <div>
+        <OrderTable orders={orders} />
       </div>
     </div>
   );

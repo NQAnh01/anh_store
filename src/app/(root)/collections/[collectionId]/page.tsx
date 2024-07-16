@@ -15,17 +15,19 @@ const CollectionDetails = async ({
       <Image
         src={collectionDetails.image}
         width={1500}
-        height={1000}
+        height={1500}
         alt="collection"
-        className="w-full h-[400px] object-cover rounded-xl"
+        className="w-screen h-auto object-cover rounded-xl"
       />
+
       <p className="text-heading3-bold text-grey-2">
         {collectionDetails.title}
       </p>
-      <p className="text-body-normal text-grey-2 text-center max-w-[900px]">
+      <div className="whitespace-pre-wrap text-body-normal text-grey-2 max-w-[1000px] p-4 ">
         {collectionDetails.description}
-      </p>
-      <div className="flex flex-wrap gap-16 justify-center">
+      </div>
+      {/* </p> */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16">
         {collectionDetails.products.map((product: ProductType) => (
           <ProductCard key={product._id} product={product} />
         ))}

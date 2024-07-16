@@ -16,8 +16,6 @@ const Navbar = () => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
   const [query, setQuery] = useState("");
 
-  console.log(user);
-
   return (
     <div className="sticky top-0 z-10 py-2 px-10 flex gap-2 justify-between items-center bg-white max-sm:px-2">
       <Link href="/">
@@ -80,10 +78,7 @@ const Navbar = () => {
             <Link href="/" className="hover:text-blue-1">
               Trang chủ
             </Link>
-            <Link
-              href={user ? "/orders" : "/sign-in"}
-              className="hover:text-blue-1"
-            >
+            <Link href={"/orders"} className="hover:text-blue-1">
               Đơn hàng
             </Link>
             <Link

@@ -1,11 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import useCart from "@/lib/hooks/useCart";
-import { MinusCircle, PenLine, PlusCircle, Trash2 } from "lucide-react";
+import {
+  CircleChevronRight,
+  MinusCircle,
+  PenLine,
+  PlusCircle,
+  Trash2,
+} from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+import { formatCurrencyVND } from "@/components/ToVnd";
 
 const CartPage = () => {
   const cart = useCart();
@@ -68,8 +77,10 @@ const CartPage = () => {
   return (
     <div className="flex gap-20 py-8 px-10 max-lg:flex-col max-sm:px-3">
       <div className="w-2/3 max-lg:w-full">
-        <p className="text-heading3-bold">Giỏ hàng</p>
-        <hr className="my-6" />
+        <div className="flex justify-between">
+          <p className="text-heading3-bold -mb-10">Giỏ hàng</p>
+        </div>
+        <Separator className="bg-grey-3 my-10" />
 
         {cart.cartItems.length === 0 ? (
           <p className="text-body-bold">Không có sản phẩm trong giỏ!</p>
@@ -96,7 +107,9 @@ const CartPage = () => {
                       <p className="text-small-medium">{cartItem.color}</p>
                     )}
                     <p className="text-base-bold">
-                      {cartItem.item.price * cartItem.quantity}.000đ
+                      {formatCurrencyVND(
+                        cartItem.item.price * cartItem.quantity
+                      )}
                     </p>
                   </div>
                 </div>
@@ -132,7 +145,7 @@ const CartPage = () => {
           </p>
           <div className="flex justify-between text-body-semibold pb-8">
             <span>Tổng cộng</span>
-            <span> {total}</span>
+            <span> {formatCurrencyVND(total)}</span>
           </div>
           {/* Thông tin đặt hàng */}
 

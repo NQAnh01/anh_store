@@ -1,12 +1,14 @@
 import Image from "next/image";
 import React from "react";
 import { format } from "date-fns";
+import { formatCurrencyVND } from "@/components/ToVnd";
 
 const OrdersDetails = async ({ params }: { params: { orderId: string } }) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/orders/${params.orderId}`
   );
   const { orderDetails, customer } = await res.json();
+  console.log("Order Details: ", orderDetails);
   return (
     <div className="px-20 py-5 max-sm:px-3">
       <div className="my-10">
@@ -26,41 +28,75 @@ const OrdersDetails = async ({ params }: { params: { orderId: string } }) => {
         </div>
       </div>
 
-      <div>
-        {orderDetails.products.map((productItem: OrderItemType) => (
-          <div
-            key={productItem._id}
-            className="flex items-center w-full max-w-2xl space-x-4 mb-8 justify-between"
-          >
-            <div className=" h-20 my-5 gap-2">
-              <p className="text-lg font-semibold flex items-center">
-                {productItem.product.title}
-              </p>
-              <Image
-                src={productItem.product.media[0]} // Sử dụng đường dẫn hình ảnh đầu tiên trong mảng media của product
-                alt={productItem.product.title}
-                width={80}
-                height={80}
-                className="rounded-lg"
-              />
-            </div>
-            <div>
-              <p>Số lượng</p>
-              <p className="text-sm text-gray-500">{productItem.quantity}</p>
-            </div>
-
-            <div>
-              <p>Màu</p>
-              <p className="text-base">{productItem.product.colors}</p>
-            </div>
-
-            <div>
-              <p>Giá</p>
-              <p className="text-base">{productItem.product.price}.000 đ</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Sản phẩm
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Hình ảnh
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Số lượng
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Màu
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Giá
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {orderDetails.products.map((productItem: OrderItemType) => (
+            <tr key={productItem._id}>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm font-semibold">
+                  {productItem.product.title}
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <Image
+                  src={productItem.product.media[0]} // Sử dụng đường dẫn hình ảnh đầu tiên trong mảng media của product
+                  alt={productItem.product.title}
+                  width={80}
+                  height={80}
+                  className="rounded-lg"
+                />
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-500">
+                  {productItem.quantity}
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-base">{productItem.color}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-base">
+                  {formatCurrencyVND(productItem.product.price)}
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

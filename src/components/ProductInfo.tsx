@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import HeartFavorite from "./HeartFavorite";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import useCart from "@/lib/hooks/useCart";
+import { formatCurrencyVND } from "./ToVnd";
 
 const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
   const [selectedColor, setSelectedColor] = useState<string>(
@@ -27,7 +28,9 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
         <p className="text-base-bold">{productInfo.category}</p>
       </div>
 
-      <p className="text-heading3-bold">{productInfo.price} (vnd)</p>
+      <p className="text-heading3-bold">
+        {formatCurrencyVND(productInfo.price)}
+      </p>
 
       <div className="flex flex-col gap-2 justify-between">
         <p className="text-base-medium text-grey-2 ">Mô tả:</p>

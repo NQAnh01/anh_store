@@ -38,6 +38,7 @@ type OrderType = {
   products: [OrderItemType];
   status: string;
   total: number;
+  createdAt: string;
 };
 
 type OrderItemType = {
